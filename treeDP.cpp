@@ -7,35 +7,33 @@ using namespace std;
 vector<int> con[50003];
 bool traversed[50003]={0};
 
-int n, k;
+int n, k, p, q;
 long long ans;
 
 long long dp[50005][505];
 
 void solve(int idx)
 {
-	//printf("solve %d\n", idx);
 	traversed[idx]=1;
 	dp[idx][0]=1;
 	int id;
-	for(unsigned int i=0;i<con[idx].size();i++){
+	for(int i=0;i<con[idx].size();i++){
 		id=con[idx][i];
 		if(traversed[id]) continue;
 		solve(id);
 		for(int x=0;x<k;x++){
-			//printf("dp[%d][%d](%I64d)*dp[%d][%d](%I64d)=%I64d\n", idx, x, dp[idx][x], id, k-1-x, dp[id][k-1-x], dp[idx][x]*dp[id][k-1-x]);
 			ans+=dp[idx][x]*dp[id][k-1-x];
 		}
 		for(int x=0;x<=k;x++){
 			dp[idx][x+1]+=dp[id][x];
 		}
 	}
-	//printf("solved %d ans=%I64d\n", idx, ans);
 }
 
 int main()
 {
-	scanf("%d %d", &n, &k);
+	scanf("%d %d %d", &n, &p, &q);
+	k=p+q;
 	int a, b;
 	for(int i=0;i<50002;i++){
 		for(int j=0;j<502;j++) dp[i][j]=0;
@@ -52,5 +50,9 @@ int main()
 	}
 	ans=0;
 	solve(1);
-	printf("%I64d\n", ans);
+	double prob=(double)ans;
+	prob/=(double)n;
+	prob/=(double)(n-1);
+	prob/=(double)(n-2);
+	printf("%.17f\n", prob);
 }
