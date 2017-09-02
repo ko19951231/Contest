@@ -15,7 +15,7 @@ int main()
     printf("%d\n", n);
     double all=0;
     for(int i=0;i<n;i++){
-        int rnd=10;
+        int rnd=rand()%10+1;
         all+=rnd;
         v.push_back(rnd);
     }

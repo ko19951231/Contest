@@ -1,9 +1,9 @@
-#include <cstdio>
 #include <vector>
 #include <cstdlib>
 #include <cmath>
 #include <utility>
 #include <algorithm>
+#include <cstdio>
 using namespace std;
 
 class Point
@@ -110,26 +110,57 @@ public:
 
 int main()
 {
+    Polygon poly;
     int n;
     scanf("%d", &n);
-    Polygon poly;
-    Point p;
+    vector<int> ang;
+    vector<double> angle;
+    double all=0;
     for(int i=0;i<n;i++){
-        scanf("%lf %lf", &p.x, &p.y);
-        poly.v.push_back(p);
+        int rnd=rand()%5+1;
+        all+=rnd;
+        ang.push_back(rnd);
     }
-    int b=1;
-    int c=2;
-    double fakeMax=Triangle(poly.v[0], poly.v[1], poly.v[2]).area();
-    for(int idx=0;idx<poly.v.size();idx++){
-        while(Triangle(poly.v[idx], poly.v[b], poly.v[(c+1)%n]).area()>fakeMax){
-            fakeMax=Triangle(poly.v[idx], poly.v[b], poly.v[(c+1)%n]).area();
-            c=(c+1)%n;
-        }
-        while(Triangle(poly.v[idx], poly.v[(b+1)%n], poly.v[c]).area()>fakeMax){
-            fakeMax=Triangle(poly.v[idx], poly.v[(b+1)%n], poly.v[c]).area();
-            b=(b+1)%n;
-        }
+    int qd4=0, qd1=0, qd2=0, qd3=0;
+    for(int i=0;i<n;i++){
+        double ag=ang[i]*2*acos(-1)/all;
+        if(angle.size()>0) ag+=angle[angle.size()-1];
+        if(ag<acos(-1)/2) qd4++;
+        else if(ag<acos(-1)) qd1++;
+        else if(ag<acos(-1)*3/2) qd2++;
+        else qd3++;
+        angle.push_back(ag);
     }
-    printf("%.17f\n", fakeMax);
+    double curX=0;
+    double curY=-9999999;
+    double len=9999999/qd4;
+    printf("from leftdown to rightup\n");
+    for(int i=0;i<qd4;i++){
+        curX+=len;
+        curY+=len*tan(angle[i]);
+        printf("%f %f\n", curX, curY);
+    }
+    len=(9999999-curY)/qd1;
+    puts("form rightdown to leftup\n");
+    for(int i=qd4;i<qd4+qd1;i++){
+        printf("anglei=%f tan=%f\n", angle[i], tan(angle[i]));
+        curY+=len;
+        curX+=len/tan(angle[i]);
+        printf("%f %f\n", curX, curY);
+    }
+    len=(curX+9999999)/qd2;
+    puts("from rightup to leftdown\n");
+    for(int i=qd4+qd1;i<qd4+qd1+qd2;i++){
+        curX-=len;
+        curY-=len*tan(angle[i]);
+        printf("%f %f\n", curX, curY);
+    }
+    len=(curY+99999990/qd3);
+    puts("from leftup to rightdown\n");
+    for(int i=qd4+qd1+qd2;i<qd4+qd1+qd2+qd3-1;i++){
+        curY-=len;
+        curX-=len/tan(angle[i]);
+        printf("%f %f\n", curX, curY);
+    }
+    printf("%f %f\n", 0, -9999999);
 }
