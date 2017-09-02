@@ -1,6 +1,6 @@
 # 9/9 contest
 ### tree
-##### input
+#### input
 * random generate tree
   * code : random-generate.cpp
   * file : input01~input05
@@ -19,25 +19,25 @@
 * perfect binary tree
   * code : perfect2t.cpp
   * file : input15
-##### solution code
+#### solution code
 * complexity n : treeDP.cpp
 * complexity n^2 : treeDP-n-square.cpp
 ### triangle
-##### input
+#### input
 * regular polygon
   * file : input01
 * encircle polygon
   * code : Encircle.cpp
   * file : input02~input10
 (缺隨機凸包)
-##### convex hull checker
+#### convex hull checker
 To check if input file is indeed a convex hull. If not, output "NONO"
 * code : tuboChecker.cpp
-##### solution code
+#### solution code
 * complexity n*lg(n) : vahideh.cpp
 * complexity n^3 : enum.cpp
 * complexity n^2 : nsquare.cpp (還沒寫)
-##### fake solution code (都還沒寫)
+#### fake solution code (都還沒寫)
 * linear-fake.cpp
   * [a linear time solution on web](https://stackoverflow.com/questions/1621364/how-to-find-largest-triangle-in-convex-hull-aside-from-brute-force-search)
 * find-farest-root-fake.cpp
