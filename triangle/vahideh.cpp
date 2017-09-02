@@ -110,11 +110,13 @@ public:
 
 pair<int, int> maxTri(Polygon curPoly, int idx)
 {
-    int n=curPoly.v.size();
+    //printf("make query %d\n", idx);
+	int n=curPoly.v.size();
     int ret1, ret2;
     int a=(idx+1)%n;
     int b=(idx+2)%n;
     double globalMax=0;
+	int cnt=0;
     while(a!=idx){
         double localMax=0;
         bool change=1;
@@ -124,25 +126,29 @@ pair<int, int> maxTri(Polygon curPoly, int idx)
             {
                 tmp%=n;
                 //printf("tmpb=%d\n", tmp);
+				cnt++;
                 if(Triangle(curPoly.v[idx], curPoly.v[a], curPoly.v[tmp]).area()>localMax){
                     if(tmp!=b) change=1;
                     b=tmp;
                     localMax=Triangle(curPoly.v[idx], curPoly.v[a], curPoly.v[tmp]).area();
                 }
+				else break;
             }
             if(!change) break;
             change=0;
-            //printf("B=%d\n", b);
+            //printf("####################################################B=%d\n", b);
             for(int tmp=a;tmp%n!=b;tmp++){
                 tmp%=n;
                 //printf("tmpa=%d\n", tmp);
+				cnt++;
                 if(Triangle(curPoly.v[idx], curPoly.v[tmp], curPoly.v[b]).area()>localMax){
                     if(tmp!=a) change=1;
                     a=tmp;
                     localMax=Triangle(curPoly.v[idx], curPoly.v[tmp], curPoly.v[b]).area();
                 }
+				else break;
             }
-            //printf("A=%d\n", a);
+            //printf("####################################################A=%d idx=%d\n", a, idx);
         }
         //printf("2 stable %d %d\n", a, b);
         if(localMax>globalMax){
@@ -152,6 +158,7 @@ pair<int, int> maxTri(Polygon curPoly, int idx)
         }
         a=(a+1)%n;
     }
+	//printf("cnt %d return %d %d\n",cnt, ret1, ret2);
     return make_pair(ret1, ret2);
 }
 
@@ -189,8 +196,8 @@ double solve(Polygon curPoly)
 	triB[0]=rootB;
 	triB[1]=pairB.first;
 	triB[2]=pairB.second;
-	printf("A %d %d %d\n", triA[0], triA[1], triA[2]);
-	printf("B %d %d %d\n", triB[0], triB[1], triB[2]);
+	//printf("A %d %d %d\n", triA[0], triA[1], triA[2]);
+	//printf("B %d %d %d\n", triB[0], triB[1], triB[2]);
 	vector<pair<int, int> > v;
 	for(int i=0;i<3;i++){
 		v.push_back(make_pair(triA[i], 1));
@@ -270,7 +277,8 @@ double solve(Polygon curPoly)
 
 int main()
 {
-    Polygon poly;
+    freopen("input01.txt", "r", stdin);
+	Polygon poly;
     int n;
     scanf("%d", &n);
     for(int i=0;i<n;i++){
@@ -283,6 +291,7 @@ int main()
 		pair<int, int> roots=maxTri(poly, idx);
 		printf("%d %d %f\n", roots.first, roots.second, Triangle(poly.v[idx], poly.v[roots.first], poly.v[roots.second]).area());
 	}*/
+	puts("GOGO");
     printf("%.17f\n", solve(poly));
 	printf("%.17f\n", ans);
 	printf("%f %f, %f %f, %f %f\n", maxTriangle.a.x, maxTriangle.a.y, maxTriangle.b.x, maxTriangle.b.y, maxTriangle.c.x, maxTriangle.c.y);
