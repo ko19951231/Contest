@@ -155,11 +155,15 @@ pair<int, int> maxTri(Polygon curPoly, int idx)
     return make_pair(ret1, ret2);
 }
 
+double ans=0;
+Triangle maxTriangle;
+
 double solve(Polygon curPoly)
 {
-    if(curPoly.v.size()==3) return Triangle(curPoly.v[0], curPoly.v[1], curPoly.v[2]).area();
-    if(curPoly.v.size()==4) return max(max(Triangle(curPoly.v[0], curPoly.v[1], curPoly.v[2]).area(), Triangle(curPoly.v[0], curPoly.v[1], curPoly.v[3]).area()), max(Triangle(curPoly.v[0], curPoly.v[3], curPoly.v[2]).area(), Triangle(curPoly.v[3], curPoly.v[1], curPoly.v[2]).area()));
+    //if(curPoly.v.size()==3) return Triangle(curPoly.v[0], curPoly.v[1], curPoly.v[2]).area();
+    //if(curPoly.v.size()==4) return max(max(Triangle(curPoly.v[0], curPoly.v[1], curPoly.v[2]).area(), Triangle(curPoly.v[0], curPoly.v[1], curPoly.v[3]).area()), max(Triangle(curPoly.v[0], curPoly.v[3], curPoly.v[2]).area(), Triangle(curPoly.v[3], curPoly.v[1], curPoly.v[2]).area()));
     int n=curPoly.v.size();
+	if(n==0) return 0;
 	int rootA=rand()%n;
 	pair<int, int> pairA=maxTri(curPoly, rootA);
     int triA[3];
@@ -196,59 +200,71 @@ double solve(Polygon curPoly)
 	for(int i=0;i<5;i++){
 		if(v[i].first==v[i+1].first){
 			pair<int, int> p= maxTri(curPoly, v[i].first);
+			if(Triangle(curPoly.v[v[i].first], curPoly.v[p.first], curPoly.v[p.second]).area()>ans){
+				ans=Triangle(curPoly.v[v[i].first], curPoly.v[p.first], curPoly.v[p.second]).area();
+				maxTriangle=Triangle(curPoly.v[v[i].first], curPoly.v[p.first], curPoly.v[p.second]);
+			}
 			return Triangle(curPoly.v[v[i].first], curPoly.v[p.first], curPoly.v[p.second]).area();
 		}
 		if((v[i].first+1)%n==v[i+1].first&&v[i].second!=v[i+1].second){
 			pair<int, int> p1= maxTri(curPoly, v[i].first);
 			pair<int, int> p2= maxTri(curPoly, v[i+1].first);
+			if(Triangle(curPoly.v[v[i].first], curPoly.v[p1.first], curPoly.v[p1.second]).area()>ans){
+				ans=Triangle(curPoly.v[v[i].first], curPoly.v[p1.first], curPoly.v[p1.second]).area();
+				maxTriangle=Triangle(curPoly.v[v[i].first], curPoly.v[p1.first], curPoly.v[p1.second]);
+			}
+			if(Triangle(curPoly.v[v[i+1].first], curPoly.v[p2.first], curPoly.v[p2.second]).area()>ans){
+				ans=Triangle(curPoly.v[v[i+1].first], curPoly.v[p2.first], curPoly.v[p2.second]).area();
+				maxTriangle=Triangle(curPoly.v[v[i+1].first], curPoly.v[p2.first], curPoly.v[p2.second]);
+			}
 			return max(Triangle(curPoly.v[v[i].first], curPoly.v[p1.first], curPoly.v[p1.second]).area(), Triangle(curPoly.v[v[i+1].first], curPoly.v[p2.first], curPoly.v[p2.second]).area());
 		}
 	}
-	for(int i=0;i<6;i++) printf("%d ", v[i].first);
-	puts("");
 	double ret=0;
+	Polygon polyNext1, polyNext2;
 	if(v[0].second!=v[1].second&&v[2].second!=v[3].second&&v[4].second!=v[5].second){
-		Polygon polyNext;
-		printf("sub poly: ");
+		printf("sub poly 1: ");
+		printf("%d to %d, ", v[1].first, v[2].first);
 		for(int i=v[1].first;i%n!=(v[2].first+1)%n;i++){
 			i%=n;
-			printf("%d ", i);
-			polyNext.v.push_back(curPoly.v[i]);
+			//printf("%d ", i);
+			polyNext1.v.push_back(curPoly.v[i]);
 		}
+		printf("%d to %d, ", v[3].first, v[4].first);
 		for(int i=v[3].first;i%n!=(v[4].first+1)%n;i++){
 			i%=n;
-			printf("%d ", i);
-			polyNext.v.push_back(curPoly.v[i]);
+			//printf("%d ", i);
+			polyNext1.v.push_back(curPoly.v[i]);
 		}
+		printf("%d to %d\n", v[5].first, v[0].first);
 		for(int i=v[5].first;i%n!=(v[0].first+1)%n;i++){
 			i%=n;
-			printf("%d ", i);
-			polyNext.v.push_back(curPoly.v[i]);
+			//printf("%d ", i);
+			polyNext1.v.push_back(curPoly.v[i]);
 		}
-		puts("");
-		ret=solve(polyNext);
 	}
 	if(v[1].second!=v[2].second&&v[3].second!=v[4].second&&v[5].second!=v[0].second){
-		Polygon polyNext;
-		printf("sub poly: ");
+		printf("sub poly 2: ");
+		printf("%d to %d, ", v[2].first, v[3].first);
 		for(int i=v[2].first;i%n!=(v[3].first+1)%n;i++){
 			i%=n;
-			printf("%d ", i);
-			polyNext.v.push_back(curPoly.v[i]);
+			//printf("%d ", i);
+			polyNext2.v.push_back(curPoly.v[i]);
 		}
+		printf("%d to %d, ", v[4].first, v[5].first);
 		for(int i=v[4].first;i%n!=(v[5].first+1)%n;i++){
 			i%=n;
-			printf("%d ", i);
-			polyNext.v.push_back(curPoly.v[i]);
+			//printf("%d ", i);
+			polyNext2.v.push_back(curPoly.v[i]);
 		}
+		printf("%d to %d\n", v[0].first, v[1].first);
 		for(int i=v[0].first;i%n!=(v[1].first+1)%n;i++){
 			i%=n;
-			printf("%d ", i);
-			polyNext.v.push_back(curPoly.v[i]);
+			//printf("%d ", i);
+			polyNext2.v.push_back(curPoly.v[i]);
 		}
-		puts("");
-		ret=max(ret, solve(polyNext));
 	}
+	ret=max(solve(polyNext1), solve(polyNext2));
 	return ret;
 }
 
@@ -262,7 +278,14 @@ int main()
         scanf("%lf %lf", &p.x, &p.y);
         poly.v.push_back(p);
     }
+	/*int idx;
+	while(scanf("%d", &idx)!=EOF){
+		pair<int, int> roots=maxTri(poly, idx);
+		printf("%d %d %f\n", roots.first, roots.second, Triangle(poly.v[idx], poly.v[roots.first], poly.v[roots.second]).area());
+	}*/
     printf("%.17f\n", solve(poly));
+	printf("%.17f\n", ans);
+	printf("%f %f, %f %f, %f %f\n", maxTriangle.a.x, maxTriangle.a.y, maxTriangle.b.x, maxTriangle.b.y, maxTriangle.c.x, maxTriangle.c.y);
     /*pair<int, int> result=maxTri(poly, 0);
     printf("%d %d\n", result.first, result.second);*/
 }

@@ -154,6 +154,9 @@ public:
 	}
 };
 
+Triangle maxTriangle;
+int idx[5];
+
 int main()
 {
     int n;
@@ -170,9 +173,17 @@ int main()
         for(int j=i+1;j<n;j++){
             for(int k=j+1;k<n;k++){
                 Triangle t(tubo.v[i], tubo.v[j], tubo.v[k]);
-                if(t.area()>ans) ans=t.area();
+                if(t.area()>ans){
+					ans=t.area();
+					maxTriangle=t;
+					idx[0]=i;
+					idx[1]=j;
+					idx[2]=k;
+				}
             }
         }
     }
     printf("%.17f\n", ans);
+	printf("%f %f, %f %f, %f %f\n", maxTriangle.a.x, maxTriangle.a.y, maxTriangle.b.x, maxTriangle.b.y, maxTriangle.c.x, maxTriangle.c.y);
+	printf("%d %d %d\n", idx[0], idx[1], idx[2]);
 }

@@ -9,10 +9,9 @@ vector<int> v;
 
 int main()
 {
-    freopen("input01.txt", "w", stdout);
+    freopen("check.txt", "w", stdout);
     int n;
-    //scanf("%d", &n);
-    n=50000;
+    scanf("%d", &n);
     printf("%d\n", n);
     double all=0;
     for(int i=0;i<n;i++){

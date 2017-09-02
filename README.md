@@ -21,7 +21,7 @@
   * file : input15
 ##### solution code
 * complexity n : treeDP.cpp
-* complexity n*n : treeDP-n-square.cpp
+* complexity n^2 : treeDP-n-square.cpp
 ### triangle
 ##### input
 * regular polygon
@@ -34,8 +34,8 @@ To check if input file is indeed a convex hull. If not, output "NONO"
 * code : tuboChecker.cpp
 ##### solution code
 * complexity n*lg(n) : vahideh.cpp
-* complexity n*n*n : enum.cpp
-* complexity n*n : nsquare.cpp
+* complexity n^3 : enum.cpp
+* complexity n^2 : nsquare.cpp
 ##### fake solution code
 * linear-fake.cpp
   * [a linear time solution on web](https://stackoverflow.com/questions/1621364/how-to-find-largest-triangle-in-convex-hull-aside-from-brute-force-search)
