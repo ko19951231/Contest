@@ -33,6 +33,9 @@
 #### convex hull checker
 To check if input file is indeed a convex hull. If not, output "NONO"
 * code : tuboChecker.cpp
+#### max rooted-triangle checker
+To check if the algorithm to find the max triangle from a fixed root is correct.
+* code : maxTriChecker.cpp
 #### solution code
 * complexity n*lg(n) : vahideh.cpp
 * complexity n^3 : enum.cpp

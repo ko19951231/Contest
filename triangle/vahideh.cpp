@@ -230,20 +230,20 @@ double solve(Polygon curPoly)
 	double ret=0;
 	Polygon polyNext1, polyNext2;
 	if(v[0].second!=v[1].second&&v[2].second!=v[3].second&&v[4].second!=v[5].second){
-		printf("sub poly 1: ");
-		printf("%d to %d, ", v[1].first, v[2].first);
+		//printf("sub poly 1: ");
+		//printf("%d to %d, ", v[1].first, v[2].first);
 		for(int i=v[1].first;i%n!=(v[2].first+1)%n;i++){
 			i%=n;
 			//printf("%d ", i);
 			polyNext1.v.push_back(curPoly.v[i]);
 		}
-		printf("%d to %d, ", v[3].first, v[4].first);
+		//printf("%d to %d, ", v[3].first, v[4].first);
 		for(int i=v[3].first;i%n!=(v[4].first+1)%n;i++){
 			i%=n;
 			//printf("%d ", i);
 			polyNext1.v.push_back(curPoly.v[i]);
 		}
-		printf("%d to %d\n", v[5].first, v[0].first);
+		//printf("%d to %d\n", v[5].first, v[0].first);
 		for(int i=v[5].first;i%n!=(v[0].first+1)%n;i++){
 			i%=n;
 			//printf("%d ", i);
@@ -251,20 +251,20 @@ double solve(Polygon curPoly)
 		}
 	}
 	if(v[1].second!=v[2].second&&v[3].second!=v[4].second&&v[5].second!=v[0].second){
-		printf("sub poly 2: ");
-		printf("%d to %d, ", v[2].first, v[3].first);
+		//printf("sub poly 2: ");
+		//printf("%d to %d, ", v[2].first, v[3].first);
 		for(int i=v[2].first;i%n!=(v[3].first+1)%n;i++){
 			i%=n;
 			//printf("%d ", i);
 			polyNext2.v.push_back(curPoly.v[i]);
 		}
-		printf("%d to %d, ", v[4].first, v[5].first);
+		//printf("%d to %d, ", v[4].first, v[5].first);
 		for(int i=v[4].first;i%n!=(v[5].first+1)%n;i++){
 			i%=n;
 			//printf("%d ", i);
 			polyNext2.v.push_back(curPoly.v[i]);
 		}
-		printf("%d to %d\n", v[0].first, v[1].first);
+		//printf("%d to %d\n", v[0].first, v[1].first);
 		for(int i=v[0].first;i%n!=(v[1].first+1)%n;i++){
 			i%=n;
 			//printf("%d ", i);
@@ -277,7 +277,7 @@ double solve(Polygon curPoly)
 
 int main()
 {
-    freopen("input01.txt", "r", stdin);
+    //freopen("input01.txt", "r", stdin);
 	Polygon poly;
     int n;
     scanf("%d", &n);
