@@ -32,7 +32,6 @@ void solve(int idx)
 
 int main()
 {
-	freopen("input", "r", stdin);
 	int t;
 	scanf("%d", &t);
 	for(int tt=0;tt<t;tt++){
@@ -48,10 +47,6 @@ int main()
 			scanf("%d %d", &a, &b);
 			con[a].push_back(b);
 			con[b].push_back(a);
-		}
-		if(k==1){
-			printf("%d\n", n-1);
-			return 0;
 		}
 		ans=0;
 		solve(1);

@@ -3,13 +3,13 @@
 #### input
 * random generate tree
   * code : random-generate.cpp
-  * file : input01~input05
+  * file : input01~input05, input17~input20
 * straight line
   * code : line.cpp
   * file : input06~input07
 * flower
   * code : flower.cpp
-  * file : input08~input10
+  * file : input08~input10, input16
 * caterpillar
   * code : caterpillar.cpp
   * file : input11~input12

@@ -21,13 +21,6 @@ public:
 		x=a;
 		y=b;
 	}
-	Point operator*(const double coe)const
-	{
-		Point P;
-		P.x=x*coe;
-		P.y=y*coe;
-		return P;
-	}
 	Point operator-(const Point P)const
 	{
 		Point result;
@@ -60,13 +53,6 @@ public:
 	}
 	double cross(const Line &L)const{
 		return (p2.x-p1.x)*(L.p2.y-L.p1.y)-(p2.y-p1.y)*(L.p2.x-L.p1.x);
-	}
-    double dot(const Line &L)const{
-        return (p2.x-p1.x)*(L.p2.x-L.p1.x)+(p2.y-p1.y)*(L.p2.y-L.p1.y);
-    }
-	double length()
-	{
-		return(sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y)));
 	}
 };
 
@@ -110,9 +96,7 @@ public:
 
 pair<int, int> maxTri(Polygon curPoly, int idx)
 {
-    //printf("make query %d\n", idx);
-	//printf("size=%d\n", curPoly.v.size());
-	int n=curPoly.v.size();
+    int n=curPoly.v.size();
     int ret1=-1, ret2=-1;
     int a=(idx+1)%n;
     int b=(idx+2)%n;
@@ -152,7 +136,6 @@ pair<int, int> checker(Polygon poly, int idx)
             }
         }
     }
-    //if(globalmax>maxmax) maxmax=globalmax;
     return make_pair(ret1, ret2);
 }
 
@@ -171,22 +154,11 @@ int main()
 		int idx;
 		maxmax=0;
 		for(idx=0;idx<poly.v.size();idx++){
-			//printf("idx=%d\n", idx);
 			pair<int, int> maxtri_ans=maxTri(poly, idx);
+			//pair<int, int> maxtri_ans=checker(poly, idx);
 			if(Triangle(poly.v[idx], poly.v[maxtri_ans.first], poly.v[maxtri_ans.second]).area()>maxmax){
 				maxmax=Triangle(poly.v[idx], poly.v[maxtri_ans.first], poly.v[maxtri_ans.second]).area();
-				printf("maxmax %f point %d %d %d\n", maxmax, idx, maxtri_ans.first, maxtri_ans.second);
 			}
-			//printf("maxtri %d %d\n", maxtri_ans.first, maxtri_ans.second);
-			//pair<int, int> enum_ans=checker(poly, idx);
-			//printf("enum %d %d\n", enum_ans.first, enum_ans.second);
-			/*bool yes=0;
-			if(maxtri_ans.first==enum_ans.first&&maxtri_ans.second==enum_ans.second) yes=1;
-			if(maxtri_ans.first==enum_ans.second&&maxtri_ans.second==enum_ans.first) yes=1;
-			if(yes==0){
-				puts("##################################NONO");
-				//scanf("%d", &yes);
-			}*/
 		}
 		printf("%.17f\n", maxmax);
 	}
