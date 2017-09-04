@@ -32,27 +32,33 @@ void solve(int idx)
 
 int main()
 {
-	scanf("%d %d %d", &n, &p, &q);
-	k=p+q;
-	int a, b;
-	for(int i=0;i<50002;i++){
-		for(int j=0;j<502;j++) dp[i][j]=0;
-		con[i].clear();
+	freopen("input", "r", stdin);
+	int t;
+	scanf("%d", &t);
+	for(int tt=0;tt<t;tt++){
+		scanf("%d %d %d", &n, &p, &q);
+		k=p+q;
+		int a, b;
+		for(int i=0;i<50002;i++){
+			for(int j=0;j<502;j++) dp[i][j]=0;
+			con[i].clear();
+			traversed[i]=0;
+		}
+		for(int i=0;i<n-1;i++){
+			scanf("%d %d", &a, &b);
+			con[a].push_back(b);
+			con[b].push_back(a);
+		}
+		if(k==1){
+			printf("%d\n", n-1);
+			return 0;
+		}
+		ans=0;
+		solve(1);
+		double prob=(double)ans*2;
+		prob/=(double)n;
+		prob/=(double)(n-1);
+		prob/=(double)(n-2);
+		printf("%.17f\n", prob);
 	}
-	for(int i=0;i<n-1;i++){
-		scanf("%d %d", &a, &b);
-		con[a].push_back(b);
-		con[b].push_back(a);
-	}
-	if(k==1){
-		printf("%d\n", n-1);
-		return 0;
-	}
-	ans=0;
-	solve(1);
-	double prob=(double)ans;
-	prob/=(double)n;
-	prob/=(double)(n-1);
-	prob/=(double)(n-2);
-	printf("%.17f\n", prob);
 }

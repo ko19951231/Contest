@@ -44,7 +44,7 @@ int main()
 	for(int i=1;i<=n;i++){
         solve(i, 0, 0);
     }
-	double prob=(double)ans/2;
+	double prob=(double)ans;
 	prob/=(double)n;
 	prob/=(double)(n-1);
 	prob/=(double)(n-2);

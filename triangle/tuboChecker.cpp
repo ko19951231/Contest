@@ -165,7 +165,7 @@ public:
 
 int main()
 {
-    //freopen("input01.txt", "w", stdout);
+    freopen("input16.txt", "r", stdin);
     int n;
     scanf("%d", &n);
     Polygon poly;
@@ -174,8 +174,13 @@ int main()
     for(int i=0;i<n;i++){
         scanf("%lf %lf", &x, &y);
         cnt=poly.v.size();
-        if(poly.v.size()>=2&&(Line(poly.v[cnt-1], poly.v[cnt-2]).cross(Line(poly.v[cnt-1], Point(x, y)))>0||Line(poly.v[0], Point(x, y)).cross(Line(poly.v[0], poly.v[1]))>0||Line(Point(x, y), poly.v[cnt-1]).cross(Line(Point(x, y), poly.v[0]))>0)){
+		if(i>0&&poly.v[i-1].x==x&&poly.v[i-1].y==y){
+			puts("NONO");
+			printf("same %f %f, %f %f\n", x, y, poly.v[i-1].x, poly.v[i-1].y);
+		}
+        if(poly.v.size()>=2&&(Line(poly.v[cnt-1], poly.v[cnt-2]).cross(Line(poly.v[cnt-1], Point(x, y)))>=0||Line(poly.v[0], Point(x, y)).cross(Line(poly.v[0], poly.v[1]))>=0||Line(Point(x, y), poly.v[cnt-1]).cross(Line(Point(x, y), poly.v[0]))>=0)){
             puts("NONO");
+			printf("%f %f, %f %f, %f %f, %f %f, %f %f not good\n", poly.v[cnt-2].x, poly.v[cnt-2].y, poly.v[cnt-1].x, poly.v[cnt-1].y, x, y, poly.v[0].x, poly.v[0].y, poly.v[1].x, poly.v[1].y);
         }
         poly.v.push_back(Point(x, y));
     }

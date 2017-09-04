@@ -277,7 +277,8 @@ double solve(Polygon curPoly)
 
 int main()
 {
-    //freopen("input01.txt", "r", stdin);
+    freopen("input10.txt", "r", stdin);
+	freopen("output10.txt", "w", stdout);
 	Polygon poly;
     int n;
     scanf("%d", &n);
@@ -291,10 +292,10 @@ int main()
 		pair<int, int> roots=maxTri(poly, idx);
 		printf("%d %d %f\n", roots.first, roots.second, Triangle(poly.v[idx], poly.v[roots.first], poly.v[roots.second]).area());
 	}*/
-	puts("GOGO");
+	//puts("GOGO");
     printf("%.17f\n", solve(poly));
-	printf("%.17f\n", ans);
-	printf("%f %f, %f %f, %f %f\n", maxTriangle.a.x, maxTriangle.a.y, maxTriangle.b.x, maxTriangle.b.y, maxTriangle.c.x, maxTriangle.c.y);
+	//printf("%.17f\n", ans);
+	//printf("%f %f, %f %f, %f %f\n", maxTriangle.a.x, maxTriangle.a.y, maxTriangle.b.x, maxTriangle.b.y, maxTriangle.c.x, maxTriangle.c.y);
     /*pair<int, int> result=maxTri(poly, 0);
     printf("%d %d\n", result.first, result.second);*/
 }

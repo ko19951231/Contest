@@ -9,13 +9,13 @@ vector<int> v;
 
 int main()
 {
-    freopen("check.txt", "w", stdout);
-    int n;
-    scanf("%d", &n);
+    freopen("input01.txt", "w", stdout);
+    int n=2000;
+    //scanf("%d", &n);
     printf("%d\n", n);
     double all=0;
     for(int i=0;i<n;i++){
-        int rnd=rand()%10+1;
+        int rnd=rand()%1+1;
         all+=rnd;
         v.push_back(rnd);
     }

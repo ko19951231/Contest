@@ -20,7 +20,7 @@
   * code : perfect2t.cpp
   * file : input15
 #### solution code
-* complexity n : treeDP.cpp
+* complexity n*k : treeDP.cpp
 * complexity n^2 : treeDP-n-square.cpp
 ### triangle
 #### input

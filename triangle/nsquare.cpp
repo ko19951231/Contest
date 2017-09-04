@@ -174,10 +174,20 @@ int main()
     }
     int idx;
     double maxmax=0;
+    Triangle large;
+    int ans[5];
     for(idx=0;idx<poly.v.size();idx++){
         if(idx%100==0) printf("%d\n", idx);
         pair<int, int> maxtri_ans=maxTri(poly, idx);
-        maxmax=max(maxmax, Triangle(poly.v[idx], poly.v[maxtri_ans.first], poly.v[maxtri_ans.second]).area());
+        if(Triangle(poly.v[idx], poly.v[maxtri_ans.first], poly.v[maxtri_ans.second]).area()>maxmax){
+            maxmax=Triangle(poly.v[idx], poly.v[maxtri_ans.first], poly.v[maxtri_ans.second]).area();
+            large=Triangle(poly.v[idx], poly.v[maxtri_ans.first], poly.v[maxtri_ans.second]);
+            ans[0]=idx;
+            ans[1]=maxtri_ans.first;
+            ans[2]=maxtri_ans.second;
+        }
     }
     printf("maxmax=%.17f\n", maxmax);
+    printf("%f %f, %f %f, %f %f\n", large.a.x, large.a.y, large.b.x, large.b.y, large.c.x, large.c.y);
+    printf("%d %d %d\n", ans[0], ans[1], ans[2]);
 }

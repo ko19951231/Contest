@@ -122,6 +122,8 @@ int main()
     int c=2;
     double fakeMax=Triangle(poly.v[0], poly.v[1], poly.v[2]).area();
     for(int idx=0;idx<poly.v.size();idx++){
+        b=(idx+1)%n;
+        c=(idx+2)%n;
         while(Triangle(poly.v[idx], poly.v[b], poly.v[(c+1)%n]).area()>fakeMax){
             fakeMax=Triangle(poly.v[idx], poly.v[b], poly.v[(c+1)%n]).area();
             c=(c+1)%n;

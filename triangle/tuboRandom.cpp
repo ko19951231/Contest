@@ -110,57 +110,66 @@ public:
 
 int main()
 {
+    freopen("test.txt", "w", stdout);
     Polygon poly;
-    int n;
-    scanf("%d", &n);
+    int n=10;
+    //scanf("%d", &n);
+    printf("%d\n", n);
     vector<int> ang;
     vector<double> angle;
+    vector<int> dy;
     double all=0;
     for(int i=0;i<n;i++){
-        int rnd=rand()%5+1;
+        int rnd=rand()%16+10;
         all+=rnd;
         ang.push_back(rnd);
+        rnd=rand()%16+10;
+        dy.push_back(rnd);
     }
-    int qd4=0, qd1=0, qd2=0, qd3=0;
+    int left=0, right=0;
+    double rightAll=0, leftAll=0;
     for(int i=0;i<n;i++){
         double ag=ang[i]*2*acos(-1)/all;
         if(angle.size()>0) ag+=angle[angle.size()-1];
-        if(ag<acos(-1)/2) qd4++;
-        else if(ag<acos(-1)) qd1++;
-        else if(ag<acos(-1)*3/2) qd2++;
-        else qd3++;
+        if(i<5||i>=n-5) dy[i]=1;
+        if(ag<acos(-1)){
+            right++;
+            rightAll+=dy[i];
+        }
+        else{
+            dy[right]=1;
+            left++;
+            if(i<n-1) leftAll+=dy[i];
+        }
         angle.push_back(ag);
     }
+    double leftMost=0, rightMost=0;
     double curX=0;
     double curY=-9999999;
-    double len=9999999/qd4;
-    printf("from leftdown to rightup\n");
-    for(int i=0;i<qd4;i++){
-        curX+=len;
-        curY+=len*tan(angle[i]);
-        printf("%f %f\n", curX, curY);
-    }
-    len=(9999999-curY)/qd1;
-    puts("form rightdown to leftup\n");
-    for(int i=qd4;i<qd4+qd1;i++){
-        printf("anglei=%f tan=%f\n", angle[i], tan(angle[i]));
+    double dlen=9999999*2/rightAll;
+    for(int i=0;i<right;i++){
+        //printf("angle %f len %f\n", angle[i], len);
+        double len=dlen*dy[i];
         curY+=len;
         curX+=len/tan(angle[i]);
-        printf("%f %f\n", curX, curY);
+        if(curX>rightMost) rightMost=curX;
+        if(curX<leftMost) leftMost=curX;
+        poly.v.push_back(Point(curX, curY));
     }
-    len=(curX+9999999)/qd2;
-    puts("from rightup to leftdown\n");
-    for(int i=qd4+qd1;i<qd4+qd1+qd2;i++){
-        curX-=len;
-        curY-=len*tan(angle[i]);
-        printf("%f %f\n", curX, curY);
-    }
-    len=(curY+99999990/qd3);
-    puts("from leftup to rightdown\n");
-    for(int i=qd4+qd1+qd2;i<qd4+qd1+qd2+qd3-1;i++){
+    dlen=(curY+9999999)/leftAll;
+    for(int i=right;i<right+left-1;i++){
+        //printf("angle %f len %f\n", angle[i], len);
+        double len=dlen*dy[i];
         curY-=len;
         curX-=len/tan(angle[i]);
-        printf("%f %f\n", curX, curY);
+        if(curX>rightMost) rightMost=curX;
+        if(curX<leftMost) leftMost=curX;
+        poly.v.push_back(Point(curX, curY));
     }
-    printf("%f %f\n", 0, -9999999);
+    poly.v.push_back(Point(0, -9999999));
+    double dx=max(-leftMost, rightMost);
+    dx/=9999999;
+    for(int i=0;i<n;i++){
+        printf("%f %f\n", poly.v[i].x/dx, poly.v[i].y);
+    }
 }
