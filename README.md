@@ -3,7 +3,7 @@
 #### input
 * random generate tree
   * code : random-generate.cpp
-  * file : input01~input05, input17~input20
+  * file : input01\~input05, input17\~input20
 * straight line
   * code : line.cpp
   * file : input06~input07
